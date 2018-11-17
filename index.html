@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<title>josh's trash chat</title>
+	</head>
+	<body>
+		<div id="messages"></div>
+		<input type="text" placeholder="type username plz plz plz plz..." id="username">
+		<input type="text" placeholder="type a message or else plz plz..." id="messageBox">
+		
+		<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCNsDf1qbKK6O3bjRglT29Gcuf1cNAwU9k",
+    authDomain: "chat-47a3b.firebaseapp.com",
+    databaseURL: "https://chat-47a3b.firebaseio.com",
+    projectId: "chat-47a3b",
+    storageBucket: "chat-47a3b.appspot.com",
+    messagingSenderId: "22693552870"
+  };
+  firebase.initializeApp(config);
+</script>
+
+		<script>
+		document.onkeydown = function(e){
+			if(e.keyCode == 13){
+				firebase.database().ref().push("&lt;" + document.getElementById("username").value + "&gt; " + document.getElementById("messageBox").value);
+			}
+		}
+		firebase.database().ref().on("child_added", function(data){
+			document.getElementById("messages").innerHTML += "<p>" + data.val() + "</p>";
+		});
+		</script>
+	</body>
+</html>
